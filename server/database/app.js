@@ -58,17 +58,45 @@ app.get('/fetchReviews/dealer/:id', async (req, res) => {
 
 // Express route to fetch all dealerships
 app.get('/fetchDealers', async (req, res) => {
-//Write your code here
+    try {
+    // Send all dealers
+        res.status(200).json(dealers);
+  } catch (error) {
+        res.status(500).json({ message: 'Error fetching dealerships', error });
+  }
 });
 
 // Express route to fetch Dealers by a particular state
 app.get('/fetchDealers/:state', async (req, res) => {
-//Write your code here
+    try {
+        const { state } = req.params;
+        const filteredDealers = dealers.filter(dealer => dealer.state.toLowerCase() === state.toLowerCase());
+        if (filteredDealers.length > 0) {
+            res.status(200).json(filteredDealers);
+        } else {
+            res.status(404).json({ message: `No dealers found in state: ${state}` });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Error fetching dealers by state', error });
+    }
 });
 
 // Express route to fetch dealer by a particular id
 app.get('/fetchDealer/:id', async (req, res) => {
-//Write your code here
+    
+    try{
+        const {id} = req.params;
+        const dealer = dealers.find(dealer => dealer.id == id);
+        if (dealer) {
+            res.status(200).json(dealer);
+        } else {
+            res.status(404).json({message: `Dealer with ID ${id} not found`})
+        }
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Error fetching dealer by ID', error });
+    }
 });
 
 //Express route to insert review
