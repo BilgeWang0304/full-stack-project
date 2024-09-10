@@ -59,20 +59,20 @@ app.get('/fetchReviews/dealer/:id', async (req, res) => {
 // Express route to fetch all dealerships
 app.get('/fetchDealers', async (req, res) => {
     try {
-    // Send all dealers
-        res.status(200).json(dealers);
-  } catch (error) {
+        const documents = await Dealerships.find({}); // Assuming getDealers is an async function that fetches from a database
+        res.status(200).json(documents);
+    } catch (error) {
         res.status(500).json({ message: 'Error fetching dealerships', error });
-  }
+    }
 });
 
 // Express route to fetch Dealers by a particular state
 app.get('/fetchDealers/:state', async (req, res) => {
     try {
-        const { state } = req.params;
-        const filteredDealers = dealers.filter(dealer => dealer.state.toLowerCase() === state.toLowerCase());
+        
+        const documents = await Dealerships.find({state: req.params});
         if (filteredDealers.length > 0) {
-            res.status(200).json(filteredDealers);
+            res.status(200).json(documents);
         } else {
             res.status(404).json({ message: `No dealers found in state: ${state}` });
         }
@@ -86,10 +86,10 @@ app.get('/fetchDealers/:state', async (req, res) => {
 app.get('/fetchDealer/:id', async (req, res) => {
     
     try{
-        const {id} = req.params;
-        const dealer = dealers.find(dealer => dealer.id == id);
-        if (dealer) {
-            res.status(200).json(dealer);
+        
+        const documents = await Dealerships.find({id: req.params});
+        if (documents) {
+            res.status(200).json(documents);
         } else {
             res.status(404).json({message: `Dealer with ID ${id} not found`})
         }
@@ -127,6 +127,6 @@ app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
 });
 
 // Start the Express server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(3030, () => {
+  console.log('Server is running on port 3030');
 });
