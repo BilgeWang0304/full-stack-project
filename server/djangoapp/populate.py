@@ -1,4 +1,3 @@
-# The data is populated when the first call is made to get_car.
 from .models import CarMake, CarModel
 
 def initiate():
@@ -12,8 +11,11 @@ def initiate():
 
     car_make_instances = []
     for data in car_make_data:
-            car_make_instances.append(CarMake.objects.create(name=data['name'], description=data['description']))
+            car_make, created = CarMake.objects.get_or_create(name=data['name'], defaults={'description': data['description']})
+            car_make_instances.append(car_make)
 
+
+    # Create CarModel instances with the corresponding CarMake instances
     car_model_data = [
       {"name":"Pathfinder", "type":"SUV", "year": 2023, "car_make":car_make_instances[0]},
       {"name":"Qashqai", "type":"SUV", "year": 2023, "car_make":car_make_instances[0]},

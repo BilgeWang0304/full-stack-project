@@ -72,6 +72,7 @@ def registration(request):
         return JsonResponse(data)
 
 # add a method to get the list of cars 
+@csrf_exempt
 def get_cars(request):
     count = CarMake.objects.filter().count()
     print(count)
