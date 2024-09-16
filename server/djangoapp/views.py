@@ -42,7 +42,7 @@ def login_user(request):
 # Create a `logout_request` view to handle sign out request
 @csrf_exempt
 def logout_request(request):
-    
+
 
 # Create a `registration` view to handle sign up request
 @csrf_exempt
