@@ -38,8 +38,11 @@ def login_user(request):
         data = JsonResponse({"status": "Authentication failed"})
     return JsonResponse(data)
 
+
 # Create a `logout_request` view to handle sign out request
-# def logout_request(request):
+@csrf_exempt
+def logout_request(request):
+    
 
 # Create a `registration` view to handle sign up request
 @csrf_exempt
@@ -83,6 +86,7 @@ def get_cars(request):
 
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
+@csrf_exempt
 def get_dealerships(reques, state="All"):
     if (state == "All"):
         endpoint = "/fetchDealers"
@@ -94,6 +98,7 @@ def get_dealerships(reques, state="All"):
 # ...
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
+@csrf_exempt
 def get_dealer_reviews(request,dealer_id):
     if (dealer_id):
         endpoint = "/fetchReviews/dealer/"+str(dealer_id)
@@ -107,6 +112,7 @@ def get_dealer_reviews(request,dealer_id):
         return JsonResponse({"status":400,"message":"Bad Request"})
 
 # Create a `get_dealer_details` view to render the dealer details
+@csrf_exempt
 def get_dealer_details(request, dealer_id):
     if (dealer_id):
         endpoint = "/fetchDealer/" +str(dealer_id)
@@ -117,12 +123,13 @@ def get_dealer_details(request, dealer_id):
 # ...
 
 # Create a `add_review` view to submit a review
+@csrf_exempt
 def add_review(request):
     if (request.user.is_anonymous == False):
         data = json.loads(request.body)
         try:
             response = post_review(data)
-             return JsonResponse({"status":200})
+            return JsonResponse({"status":200})
         except:
             return JsonResponse({"status":400,"messaage":"Error in posting review"})
     else:
