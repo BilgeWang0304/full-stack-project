@@ -36,13 +36,23 @@ def login_user(request):
         data = {"userName": username, "status": "Authenticated"}
     else:
         data = JsonResponse({"status": "Authentication failed"})
-    return JsonResponse(data)
+    return JsonResponse(data, safe=False)
 
 
 # Create a `logout_request` view to handle sign out request
 @csrf_exempt
 def logout_request(request):
-
+    if request.method == 'POST':
+        # Perform the logout
+        logout(request)
+        
+        # Create the response data
+        data = {"userName": ""}
+        
+        # Return a JSON response
+        return JsonResponse(data)
+    else:
+        return JsonResponse({"error": "Only POST method is allowed"}, status=400)
 
 # Create a `registration` view to handle sign up request
 @csrf_exempt
