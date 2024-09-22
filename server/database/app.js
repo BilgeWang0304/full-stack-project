@@ -32,7 +32,7 @@ try {
 
 
 // Express route to home
-app.get('/', async (req, res) => {
+app.get('/', async (res) => {
     res.send("Welcome to the Mongoose API")
 });
 
@@ -68,10 +68,10 @@ app.get('/fetchDealers', async (req, res) => {
 
 // Express route to fetch Dealers by a particular state
 app.get('/fetchDealers/:state', async (req, res) => {
+    const state = req.params.state;
     try {
-        
-        const documents = await Dealerships.find({state: req.params});
-        if (filteredDealers.length > 0) {
+        const documents = await Dealerships.find({state: state});
+        if (documents > 0) {
             res.status(200).json(documents);
         } else {
             res.status(404).json({ message: `No dealers found in state: ${state}` });
@@ -84,10 +84,9 @@ app.get('/fetchDealers/:state', async (req, res) => {
 
 // Express route to fetch dealer by a particular id
 app.get('/fetchDealer/:id', async (req, res) => {
-    
+    const id = req.params.id
     try{
-        
-        const documents = await Dealerships.find({id: req.params});
+        const documents = await Dealerships.find({id: id});
         if (documents) {
             res.status(200).json(documents);
         } else {
@@ -127,6 +126,6 @@ app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
 });
 
 // Start the Express server
-app.listen(3030, () => {
+app.listen(port, () => {
   console.log('Server is running on port 3030');
 });
