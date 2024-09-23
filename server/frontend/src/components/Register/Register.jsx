@@ -15,11 +15,6 @@ const Register = () => {
   }
   const register = async (e) => {
     e.preventDefault();
-    if (!userName) newErrors.userName = "Username is required.";
-    if (!firstName) newErrors.firstName = "First name is required.";
-    if (!lastName) newErrors.lastName = "Last name is required.";
-    if (!email) newErrors.email = "Email is required.";
-    if (!password) newErrors.password = "Password is required.";
     
     let register_url = window.location.origin+"/djangoapp/register";
     
