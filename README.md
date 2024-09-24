@@ -52,6 +52,11 @@ Create pages using Django templates for:
   
   Adding a review for a selected dealer.
 
+![dealers_selected](https://github.com/user-attachments/assets/73fd9821-f8b6-4419-baca-ac8a9f33bb21)
+
+![post_review](https://github.com/user-attachments/assets/96eeb834-710b-484d-b7ed-27d84fc7b881)
+
+
 ### 6.CI/CD Pipeline:
 
 Implement CI/CD for continuous integration, code linting, and testing.
