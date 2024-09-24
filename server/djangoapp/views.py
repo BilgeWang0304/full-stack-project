@@ -1,11 +1,5 @@
-from django.shortcuts import render
-
 from django.contrib.auth.models import User
-
 from django.contrib.auth import logout
-
-
-
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
 import logging
@@ -49,8 +43,8 @@ def logout_request(request):
         # Return a JSON response
         return JsonResponse(data)
     else:
-        return JsonResponse({"error": "Only POST method is allowed"}, 
-        status=400)
+        return JsonResponse({"error": "Only POST method is allowed"},
+            "status": 400)
 
 
 # Create a `registration` view to handle sign up request
@@ -69,8 +63,12 @@ def registration(request):
     except Exception:
         logger.debug("{} is new user".format(username))
     if not username_exist:
-        user = User.objects.create_user(username=username, first_name=first_name, 
-        last_name=last_name,password=password, email=email)
+        user = User.objects.create_user(username=username,
+            first_name=first_name,
+            last_name=last_name,
+            password=password,
+            email=email
+        )
         login(request, user)
         data = {"userName": username, "status": "Authenticated"}
         return JsonResponse(data)

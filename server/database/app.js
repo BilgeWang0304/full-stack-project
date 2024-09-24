@@ -37,7 +37,7 @@ try {
 
 // Express route to home
 app.get('/', async (res) => {
-    res.send("Welcome to the Mongoose API")
+    res.send("Welcome to the Mongoose API");
 });
 
 // Express route to fetch all reviews
@@ -94,7 +94,7 @@ app.get('/fetchDealer/:id', async (req, res) => {
         if (documents) {
             res.status(200).json(documents);
         } else {
-            res.status(404).json({message: `Dealer with ID ${id} not found`})
+            res.status(404).json({message: `Dealer with ID ${id} not found`});
         }
     }
     catch (error) {
